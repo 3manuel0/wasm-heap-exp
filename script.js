@@ -1,8 +1,16 @@
 let wasm;
 const str_len = wasmlib.str_len;
 const get_str = wasmlib.get_str;
+
+const get_str_len = (str_ptr, len) => {
+  const buffer = wasm.instance.exports.memory.buffer;
+  const mem = new Uint8Array(buffer);
+  const str_bytes = new Uint8Array(buffer, str_ptr, len);
+  return new TextDecoder().decode(str_bytes);
+};
+
 let ddrawRectangle;
-WebAssembly.instantiateStreaming(fetch("main.wasm"), {
+WebAssembly.instantiateStreaming(fetch("string.wasm"), {
   env: wasmlib.make_environment({
     jprintf: (str_ptr, args_ptrs) => {
       const buffer = wasm.instance.exports.memory.buffer;
@@ -67,17 +75,21 @@ WebAssembly.instantiateStreaming(fetch("main.wasm"), {
       console.log(f_str);
       // console.log(get_str(args_ptrs), new Uint32Array(buffer, args_ptrs, 1));
     },
+    fwrite: (str_ptr, len, count, filedesc) => {
+      console.log(get_str_len(str_ptr, len * count));
+    },
   }),
 }).then((w) => {
   wasm = w;
-  const { heap_base, wmalloc } = w.instance.exports;
-  console.log(wmalloc(500));
-  console.log(wmalloc(1564000));
-  console.log(wmalloc(64000));
-  console.log(wmalloc(64000));
-  console.log(wmalloc(64000));
-  console.log(wmalloc(64000));
-  console.log(wmalloc(64000));
+  const { heap_base, wmalloc, test } = w.instance.exports;
+  // console.log(wmalloc(500));
+  // console.log(wmalloc(1564000));
+  // console.log(wmalloc(64000));
+  // console.log(wmalloc(64000));
+  // console.log(wmalloc(64000));
+  // console.log(wmalloc(64000));
+  // console.log(wmalloc(64000));
+  test();
   const buffer = wasm.instance.exports.memory.buffer;
-  console.log(heap_base());
+  // console.log(heap_base());
 });
