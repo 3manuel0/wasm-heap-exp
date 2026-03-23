@@ -2,8 +2,8 @@
 
 Lib3man WASM is an experimental project where I make my C library ([lib3man](https://github.com/3manuel0/lib3man)) work in WebAssembly for learning purposes and to explore low-level behavior in a web environment.
 
-[!WARNING]
-This project is experimental and may change or break at any time.
+> [!WARNING]
+> This project is experimental and may change or break at any time.
 
 #### It includes :
 
