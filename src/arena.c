@@ -1,13 +1,4 @@
-#include "includes/lib3masm.h"
-
-Arena a = {0};
-
-void *test(){
-    a = create_Arena(500);
-    jprintf("capacity :%d adress :%d cur_size: %d", a.capacity, a.address, a.cur_size);
-    return arena_Alloc(&a, 2);
-}
-
+#include "../includes/lib3masm.h"
 
 Arena create_Arena(size_t arena_size){
     Arena arena = {0};

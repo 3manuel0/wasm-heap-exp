@@ -10,7 +10,7 @@ const get_str_len = (str_ptr, len) => {
 };
 
 let ddrawRectangle;
-WebAssembly.instantiateStreaming(fetch("arena.wasm"), {
+WebAssembly.instantiateStreaming(fetch("build/main.wasm"), {
   env: wasmlib.make_environment({
     jprintf: (str_ptr, args_ptrs) => {
       const buffer = wasm.instance.exports.memory.buffer;
@@ -81,7 +81,7 @@ WebAssembly.instantiateStreaming(fetch("arena.wasm"), {
   }),
 }).then((w) => {
   wasm = w;
-  const { heap_base, wmalloc, test, create_Arena } = w.instance.exports;
+  const { heap_base, wmalloc, test, test2 } = w.instance.exports;
   // console.log(wmalloc(500));
   // console.log(wmalloc(1564000));
   // console.log(wmalloc(64000));
@@ -89,7 +89,9 @@ WebAssembly.instantiateStreaming(fetch("arena.wasm"), {
   // console.log(wmalloc(64000));
   // console.log(wmalloc(64000));
   // console.log(wmalloc(64000));
+  console.log(test2());
   console.log(test());
+
   const buffer = wasm.instance.exports.memory.buffer;
   // console.log(heap_base());
 });

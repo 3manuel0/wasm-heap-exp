@@ -1,8 +1,6 @@
-#include "includes/lib3masm.h"
+#include "../includes/lib3masm.h"
 
-// Importent replaced wirte with fwrite :
-// 1- for buffering meaning printing is faster
-// 2- compatibility with windows 
+
 // TODO: sv inside areanaList
 
 // string View functions ##################################################################
@@ -22,12 +20,6 @@ sv sv_from_sb(const sb *sb){
     assert(sb != NULL);
     assert(sb->str != NULL && sb->len > 0);
     return (sv){.str = sb->str, .len = sb->len};
-}
-
-void test(){
-    sv test = sv_from_lit("test sv ");
-    jprintf("%d %d", test.len, test.str);
-    sv_print(&test);
 }
 
 // returns the number of sub strings (svs)

@@ -1,4 +1,4 @@
-#include "includes/lib3masm.h"
+#include "../includes/lib3masm.h"
 
 unsigned char * HEAP_BASE = &__heap_base;
 unsigned char * CURRENT_PTR = &__heap_base;
@@ -17,7 +17,8 @@ unsigned char *wmalloc(unsigned long size){
     unsigned char* ptr = CURRENT_PTR;
     unsigned long pages = __builtin_wasm_memory_size(0);
     if((unsigned long)CURRENT_PTR + size < pages * PAGE_LEN){
-        CURRENT_PTR += size;
+        CURRENT_PTR += size + (size % 4);
+        jprintf("CURRENT_PTR = %d", CURRENT_PTR);
         return ptr;
     }
     unsigned long i = size / PAGE_LEN;
@@ -25,7 +26,8 @@ unsigned char *wmalloc(unsigned long size){
         __builtin_wasm_memory_grow(0, 1);
     else 
         __builtin_wasm_memory_grow(0, i + 1);
-    CURRENT_PTR += size;
+    CURRENT_PTR += size + (size % 4);
+    jprintf("CURRENT_PTR = %d", CURRENT_PTR);
     return ptr;
 
 }
