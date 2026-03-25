@@ -26,6 +26,7 @@ typedef int FILE;
 #define stderr 2
 
 typedef struct mem_header{
+  i32 flag;
   size_t size;
 }mem_header;
 
