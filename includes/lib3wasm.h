@@ -49,7 +49,7 @@ int fwrite(const void *, unsigned long, unsigned long, FILE filedesc);
 
 size_t strlen(const char *s);
 
-int fprintf(FILE desc, const char *__restrict format, ...);
+int fprintf(FILE desc, const char *__restrict format, ...); // maybe I don't need fprintf
 
 void *memcpy(void* dest, const void* src, size_t count);
 
