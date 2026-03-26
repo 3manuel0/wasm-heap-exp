@@ -1,7 +1,7 @@
 let wasm;
 const str_len = wasmlib.str_len;
 const get_str = wasmlib.get_str;
-
+const terminal = document.getElementById("terminal");
 const get_str_len = (str_ptr, len) => {
   const buffer = wasm.instance.exports.memory.buffer;
   const mem = new Uint8Array(buffer);
@@ -72,11 +72,15 @@ WebAssembly.instantiateStreaming(fetch("build/main.wasm"), {
         }
         if (str[i] != undefined) f_str += str[i];
       }
-      console.log(f_str);
+      // console.log(f_str);
+      terminal.textContent += f_str;
+      // terminal.scrollTop = term.scrollHeight;
       // console.log(get_str(args_ptrs), new Uint32Array(buffer, args_ptrs, 1));
     },
     fwrite: (str_ptr, len, count, filedesc) => {
-      console.log(get_str_len(str_ptr, len * count));
+      const str = get_str_len(str_ptr, len * count);
+      // console.log(str);
+      terminal.textContent += str;
     },
   }),
 }).then((w) => {
@@ -86,6 +90,5 @@ WebAssembly.instantiateStreaming(fetch("build/main.wasm"), {
   console.log(test());
   console.log(test2());
   wmalloc(1000);
-  const buffer = wasm.instance.exports.memory.buffer;
   // console.log(heap_base());
 });

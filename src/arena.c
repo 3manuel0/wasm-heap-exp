@@ -18,7 +18,7 @@ void *arena_Alloc(Arena * arena, size_t size){
         return NULL;
     }
     if(arena->capacity <= size){
-        jprintf("The Size Cannot Be Bigger Than The Capacity");
+        jprintf("The Size Cannot Be Bigger Than The Capacity\n");
         return NULL;
     }
     void * ptr = NULL;
