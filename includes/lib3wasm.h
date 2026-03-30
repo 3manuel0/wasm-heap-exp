@@ -30,11 +30,16 @@ typedef struct mem_header{
   size_t size;
 }mem_header;
 
+typedef struct Free_mem{
+    u8 *free_mem[100];
+    size_t count;
+}Free_mem;
+
 extern unsigned char __heap_base;
 extern unsigned char * HEAP_BASE;
 extern unsigned char * CURRENT_PTR;
 extern unsigned long PAGE_LEN;
-
+extern Free_mem FREE_MEM;
 extern unsigned long __builtin_wasm_memory_grow(int memory_index, unsigned long pages);
 
 extern unsigned long __builtin_wasm_memory_size(int memory_index);

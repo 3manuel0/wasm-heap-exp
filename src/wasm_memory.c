@@ -1,9 +1,5 @@
 #include "../includes/lib3wasm.h"
 
-typedef struct Free_mem{
-    u8 *free_mem[100];
-    size_t index;
-}Free_mem;
 
 Free_mem FREE_MEM = {0};
 u8 *HEAP_BASE = &__heap_base;
@@ -74,8 +70,12 @@ size_t strlen(const char *s){
 
 void free(void *ptr){
     mem_header *h = (mem_header *) ptr - 1;
+    if(h->flag == false){
+        jsprintf("memory already freed\n");
+        return;
+    } 
     h->flag = false;
-    FREE_MEM.free_mem[FREE_MEM.index] = ptr;
-    FREE_MEM.index += 1;
+    FREE_MEM.free_mem[FREE_MEM.count] = ptr;
+    FREE_MEM.count += 1;
     return;
 }

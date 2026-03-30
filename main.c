@@ -45,7 +45,11 @@ void test_ArenaList(){
     // s[0] = '1';
     jsprintf("capacity :%d adress :%d cur_size: %d next: %d prev: %d\n", a->arena.capacity, a->arena.address, a->arena.cur_size, a->next, a->prev);
     arenaList_free(a);
-    jsprintf("hello, world !\n");
+    for(int i = 0; i < FREE_MEM.count;  i++){
+        jsprintf("%d %d \n", FREE_MEM.free_mem[i], ((mem_header*)FREE_MEM.free_mem[i] - 1)->size);
+    }
+    arenaList_free(a);
+
     return;
 }
 

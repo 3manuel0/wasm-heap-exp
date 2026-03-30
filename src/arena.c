@@ -38,12 +38,10 @@ void arena_reset(Arena * arena){
     arena->cur_size = 0;
 }
 
-
 void arena_free(Arena * arena){
     if(arena->memory == NULL) return;
     // free the arena before closing the programme
     free(arena->memory);
-    arena->memory = NULL;
     arena->address = NULL;
     arena->capacity = 0;
     arena->cur_size = 0;
@@ -101,21 +99,22 @@ void *arenaList_Alloc(ArenaList **arenalist, size_t size){
 
 // TODO: THIS DOESN"T WORK CURRENTLY FIX IT 
 void *arenaList_Realloc(ArenaList **arenalist, void *p, size_t oldsz , size_t newsz){
-    if(arenalist == NULL || p == NULL) return NULL;
-    if(newsz <= oldsz) return p;
-    size_t diff = newsz - oldsz;
+    // if(arenalist == NULL || p == NULL) return NULL;
+    // if(newsz <= oldsz) return p;
+    // size_t diff = newsz - oldsz;
 
-    if((char *)p + oldsz == (*arenalist)->arena.address && \
-        (*arenalist)->arena.cur_size + diff <= (*arenalist)->arena.capacity)
-    {
-        (*arenalist)->arena.address = (char *)(*arenalist)->arena.address + diff;
-        (*arenalist)->arena.cur_size += diff;
-        return p;
-    }else{
-        void *temp = arenaList_Alloc(arenalist, newsz);
-        memcpy(temp, p, oldsz);
-        return temp;
-    }
+    // if((char *)p + oldsz == (*arenalist)->arena.address && \
+    //     (*arenalist)->arena.cur_size + diff <= (*arenalist)->arena.capacity)
+    // {
+    //     (*arenalist)->arena.address = (char *)(*arenalist)->arena.address + diff;
+    //     (*arenalist)->arena.cur_size += diff;
+    //     return p;
+    // }else{
+    //     void *temp = arenaList_Alloc(arenalist, newsz);
+    //     memcpy(temp, p, oldsz);
+    //     return temp;
+    // }
+    return NULL;
 }
 
 // free all the arenas we created
