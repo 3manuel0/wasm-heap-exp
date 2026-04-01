@@ -49,7 +49,6 @@ void test_ArenaList(){
         jsprintf("%d %d \n", FREE_MEM.free_mem[i], ((mem_header*)FREE_MEM.free_mem[i] - 1)->size);
     }
     arenaList_free(a);
-
     return;
 }
 
