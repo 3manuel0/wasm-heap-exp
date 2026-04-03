@@ -1,5 +1,5 @@
-#include "../includes/lib3wasm.h"
-
+#include "../includes/wasm_mem.h"
+#include "../includes/lib3man.h"
 
 Free_mem FREE_MEM = {0};
 u8 *HEAP_BASE = &__heap_base;
@@ -49,25 +49,8 @@ unsigned char *wmalloc(unsigned long size){
     return ptr;
 }
 
-void *memcpy(void *dest, const void *src, size_t count){
-    if(dest == NULL || src == NULL)
-        return NULL;
-    for(size_t i = 0; i < count; i++){
-        ((u8 *)dest)[i] = ((u8 *)src)[i];
-    }
-    return dest;
-}
-
 void *malloc(size_t size){
     return wmalloc(size);
-}
-
-size_t strlen(const char *s){
-    size_t len = 0;
-    while(*s++){
-        len++;
-    }
-    return len;
 }
 
 void free(void *ptr){
@@ -82,6 +65,3 @@ void free(void *ptr){
     return;
 }
 
-void *memset(void * s, i32 c, size_t n){
-    return __builtin_memset(s, c, n);
-}

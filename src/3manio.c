@@ -1,4 +1,7 @@
-#include "../includes/lib3wasm.h"
+#include "../includes/3manio.h"
+#include "../includes/wasm_mem.h"
+#include "../includes/3manstr.h"
+
 
 FILE *stdout = &(FILE){0, 0, 0, 1};
 FILE *stderr = &(FILE){0, 0, 0, 2};

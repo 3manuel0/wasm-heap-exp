@@ -137,6 +137,7 @@ self.onmessage = async (e) => {
       break;
     case "run_test":
       test_ArenaList();
+      test_sv();
       let term = terminal;
       self.postMessage({ type: "stdout", term });
       break;

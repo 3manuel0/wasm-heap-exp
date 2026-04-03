@@ -1,94 +1,9 @@
 #ifndef LIB_3MAN
 #define LIB_3MAN
-
-#include <stdint.h>
-
-// ### WASM #########################################
-typedef __SIZE_TYPE__ size_t; //size_t from clang 
-typedef __PTRDIFF_TYPE__ ssize_t; //size_t from clang 
-typedef uint8_t  u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
-typedef uint64_t u64;
-typedef int8_t   i8;
-typedef int16_t  i16;
-typedef int32_t  i32;
-typedef int64_t  i64;
-typedef float    f32;
-typedef double   f64;
-
-typedef struct FILE{
-  u8 *f_ptr;
-  size_t offset;
-  size_t size;
-  i32 fdesc;
-}FILE;
-
-#define ALIGNMENT 8 // memory alignment for wasm32 (since it can store a double or int64 (64bits))
-#define false 0
-#define true 1
-#define NULL ((void *)0)
-
-extern FILE *stdout;
-extern FILE * stderr;
-
-#define SEEK_SET	0	//offset is relative to the beginning of the file.
-#define SEEK_CUR	1	//offset is relative to the current cursor position.
-#define SEEK_END	2	//offset is relative to the end of the file.
-
-typedef struct mem_header{
-  i32 flag;
-  size_t size;
-}mem_header;
-
-typedef struct Free_mem{
-    u8 *free_mem[100];
-    size_t count;
-}Free_mem;
-
-extern unsigned char __heap_base;
-extern unsigned char * HEAP_BASE;
-extern unsigned char * CURRENT_PTR;
-extern unsigned long PAGE_LEN;
-extern Free_mem FREE_MEM;
-extern unsigned long __builtin_wasm_memory_grow(int memory_index, unsigned long pages);
-extern void *__builtin_memset(void *s, int c, size_t n);
-extern unsigned long __builtin_wasm_memory_size(int memory_index);
-
-int jsprintf(const char * t, ...);
-
-unsigned char * wmalloc(unsigned long size);
-
-void *malloc(size_t size);
-
-size_t fwrite( const void* buffer, size_t size, size_t count,
-               FILE* stream );
-
-size_t strlen(const char *s);
-
-int fprintf(FILE *stream, const char *__restrict format, ...); // maybe I don't need fprintf
-
-void *memcpy(void* dest, const void* src, size_t count);
-
-void *memset(void * s, i32 c, size_t n);
-
-// TODO TEST THESE FUNCTIONS 
-FILE *fopen(void *address, size_t size);
-
-i32 fclose(FILE *stream);
-
-i32 fgetc(FILE *stream);
-
-i32 ftell(FILE *stream);
-
-i32 fseek(FILE *stream, ssize_t off, i32 whence);
-// TODO : IMPLIMENT THESE
-
-void *realloc(void * ptr, size_t size);
-
-void free(void *ptr);
-
-// ############################################################################
+#include "3mandef.h"
+#include "wasm_mem.h"
+#include "3manstr.h"
+#include "3manio.h"
 
 // ############ Arena allocator ##############################################
 #define KiB(x) ((uint64_t)(x) << 10)
