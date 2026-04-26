@@ -138,7 +138,8 @@ self.onmessage = async (e) => {
 
   await initPromise;
 
-  const { heap_base, malloc, test_sv, test_ArenaList } = wasm.instance.exports;
+  const { heap_base, malloc, test_sv, test_ArenaList, reset_heap } =
+    wasm.instance.exports;
 
   switch (type) {
     case "init":
@@ -146,6 +147,7 @@ self.onmessage = async (e) => {
       self.postMessage({ type: "ready", result });
       break;
     case "run_test":
+      reset_heap();
       test_ArenaList();
       // test_sv();
       let term = terminal;

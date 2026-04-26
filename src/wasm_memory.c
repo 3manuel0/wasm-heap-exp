@@ -9,10 +9,10 @@ u8 *CURRENT_PTR = &__heap_base;
 size_t PAGE_LEN = KiB(64);
 
 unsigned char *heap_base(){
-    long mb = MiB(1);
-    float s =  (float)mb / PAGE_LEN;
-    // jsprintf("%f %d\n", s, PAGE_LEN);
-    __builtin_wasm_memory_grow(0, 1);
+    // long mb = MiB(1);
+    // float s =  (float)mb / PAGE_LEN;
+    // // jsprintf("%f %d\n", s, PAGE_LEN);
+    // __builtin_wasm_memory_grow(0, 1);
     // jsprintf("%d %d\n", HEAP_BASE, __builtin_wasm_memory_size(0));
     return HEAP_BASE;
 }
@@ -82,4 +82,9 @@ int rand(void) {
     RAND = RAND * 1664525 + 1013904223;
     
     return ((unsigned int)(RAND / 65536));
+}
+
+void reset_heap(){
+    CURRENT_PTR = HEAP_BASE;
+    jsprintf("CURRENT_PTR = %d, HEAP_BASE = %d\n", CURRENT_PTR, HEAP_BASE);
 }

@@ -264,7 +264,6 @@ void sv_writef(const sv *sv, FILE *file){
 // string buffer functions ##################################################################
 
 // TODO: sb inside areana and arenaList ## Almost done
-
 // creating a sb from char *
 sb sb_from_cstr(const char *str){
     if(str == NULL) return (sb){NULL, 0, 0};
@@ -276,6 +275,7 @@ sb sb_from_cstr(const char *str){
         jsprintf("Error, Allocation Failed\n");
         return (sb){.str = NULL, .len = 0, .cap = 0};
     }
+    memcpy(temp, str, len);
 
     return (sb){.str = temp, .len = len, .cap = cap};
 }
